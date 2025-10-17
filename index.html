@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Royle Construction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; background-color: #f3f4f6; color: #333; }
+
+    nav {
+      position: fixed; top: 0; width: 100%; background: rgba(0,0,0,0.85);
+      color: white; text-align: center; padding: 15px 0; z-index: 1000;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 20px;
+      font-weight: 500;
+      text-decoration: none;
+      transition:
+        color 0.3s cubic-bezier(.4,2,.6,1),
+        transform 0.3s cubic-bezier(.4,2,.6,1),
+        text-shadow 0.3s cubic-bezier(.4,2,.6,1);
+      position: relative;
+      display: inline-block;
+      perspective: 300px;
+    }
+    nav a::after {
+      content: '';
+      display: block;
+      height: 3px;
+      width: 0;
+      background: linear-gradient(90deg, #ffc107 60%, #0d6efd 100%);
+      border-radius: 2px;
+      margin: 0 auto;
+      transition: width 0.35s cubic-bezier(.4,2,.6,1), box-shadow 0.3s;
+      box-shadow: 0 0 0 #ffc107;
+    }
+    nav a:hover, nav a:focus {
+      color: #ffc107;
+      transform: scale(1.12) rotateY(12deg) skewX(-2deg);
+      text-shadow: 0 4px 24px #0d6efd, 0 2px 8px #ffc107;
+      z-index: 2;
+    }
+    nav a:hover::after, nav a:focus::after {
+      width: 80%;
+      box-shadow: 0 2px 16px #ffc10788;
+    }
+
+    header {
+      background: url('/bg.jpg') center/cover no-repeat;
+      height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 0 20px; color: white; position: relative;
+    }
+    header::before {
+      content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6); z-index: 1;
+    }
+    header h1, header p, .cta-button { z-index: 2; }
+    header h1 {
+      font-size: 3rem; margin-bottom: 15px; animation: slideIn 1.2s ease-out;
+      transition: 
+        color 0.4s cubic-bezier(.4,2,.6,1),
+        text-shadow 0.4s cubic-bezier(.4,2,.6,1),
+        transform 0.4s cubic-bezier(.4,2,.6,1);
+      cursor: pointer;
+    }
+    header h1:hover {
+      color: #ffc107;
+      transform: scale(1.08) rotateY(8deg) skewX(-2deg);
+      text-shadow: 0 8px 32px #0d6efd, 0 2px 16px #ffc107, 0 1px 1px #fff;
+      letter-spacing: 2px;
+    }
+    header p {
+      font-size: 1.2rem; margin-bottom: 25px; color: #ffc107; min-height: 30px;
+      transition: 
+        color 0.4s cubic-bezier(.4,2,.6,1),
+        text-shadow 0.4s cubic-bezier(.4,2,.6,1),
+        transform 0.4s cubic-bezier(.4,2,.6,1);
+      cursor: pointer;
+    }
+    header p:hover {
+      color: #1565c0; /* Deep blue */
+      background: linear-gradient(90deg, #e3f2fd 0%, #bbdefb 100%);
+      padding: 4px 18px;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px #0d6efd55, 0 1px 1px #fff;
+      transform: scale(1.09) skewX(2deg);
+      text-shadow: 0 2px 12px #0d6efd, 0 1px 1px #fff;
+      letter-spacing: 2px;
+      transition:
+        color 0.4s cubic-bezier(.4,2,.6,1),
+        background 0.4s cubic-bezier(.4,2,.6,1),
+        box-shadow 0.4s cubic-bezier(.4,2,.6,1),
+        transform 0.4s cubic-bezier(.4,2,.6,1),
+        text-shadow 0.4s cubic-bezier(.4,2,.6,1),
+        letter-spacing 0.3s;
+    }
+    .cta-button {
+      padding: 14px 30px;
+      background-color: #ffc107;
+      color: #333;
+      border: none;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      animation: pulse 2s infinite;
+      transition:
+        background 0.3s cubic-bezier(.4,2,.6,1),
+        color 0.3s cubic-bezier(.4,2,.6,1),
+        transform 0.4s cubic-bezier(.4,2,.6,1),
+        box-shadow 0.4s cubic-bezier(.4,2,.6,1);
+      box-shadow: 0 4px 16px rgba(255,193,7,0.15), 0 2px 8px #0d6efd33;
+      will-change: transform, box-shadow, background, color;
+      perspective: 400px;
+      position: relative;
+      z-index: 1;
+    }
+    .cta-button:hover, .cta-button:focus {
+      background: linear-gradient(90deg, #ffc107 60%, #0d6efd 100%);
+      color: #fff;
+      transform: scale(1.13) perspective(500px) rotateX(10deg) rotateY(-10deg);
+      box-shadow: 0 16px 40px rgba(13,110,253,0.22), 0 4px 24px #ffc107cc, 0 0 24px #0d6efd77;
+      outline: none;
+      text-shadow: 0 2px 12px #0d6efd, 0 1px 1px #fff;
+    }
+
+    .section {
+      padding: 100px 20px 60px;
+      max-width: 1200px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 2.2rem; margin-bottom: 50px; color: #0d6efd; position: relative;
+    }
+    .section h2::after {
+      content: ''; height: 4px; width: 60px; background: #ffc107;
+      position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%);
+    }
+
+    .cards {
+      display: flex; flex-wrap: wrap; gap: 25px; justify-content: center;
+    }
+    .card {
+      background: white; border-radius: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      padding: 30px 20px; width: 280px;
+      animation: zoomIn 1s forwards; transform: scale(0.8); opacity: 0;
+    }
+    .card:nth-child(2) { animation-delay: 0.3s; }
+    .card:nth-child(3) { animation-delay: 0.6s; }
+    .card:hover { transform: translateY(-10px) scale(1.03); }
+    .card i {
+      font-size: 40px; color: #0d6efd; margin-bottom: 15px;
+      animation: floatIcon 3s ease-in-out infinite;
+    }
+
+    .testimonial-section {
+      background-color: #0d6efd; color: white; padding: 80px 20px;
+    }
+
+    .testimonial {
+      max-width: 800px; margin: auto; font-size: 1.2rem; font-style: italic;
+      animation: fadeIn 2s ease;
+    }
+
+    .filters {
+      margin: 30px 0 20px;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+    }
+    .filters button {
+      opacity: 0;
+      transform: translateY(30px) scale(0.9);
+      padding: 12px 32px;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(90deg, #0d6efd 60%, #ffc107 100%);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.08rem;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 16px rgba(13,110,253,0.08);
+      cursor: pointer;
+      transition:
+        opacity 0.6s cubic-bezier(.4,2,.6,1),
+        transform 0.6s cubic-bezier(.4,2,.6,1),
+        background 0.3s cubic-bezier(.4,2,.6,1),
+        color 0.3s cubic-bezier(.4,2,.6,1),
+        box-shadow 0.3s cubic-bezier(.4,2,.6,1);
+      outline: none;
+    }
+    .filters.visible button {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    .filters button:nth-child(1) { transition-delay: 0.1s; }
+    .filters button:nth-child(2) { transition-delay: 0.25s; }
+    .filters button:nth-child(3) { transition-delay: 0.4s; }
+    .filters button:hover,
+    .filters button:focus {
+      background: linear-gradient(90deg, #ffc107 60%, #0d6efd 100%);
+      color: #222;
+      transform: scale(1.09) translateY(-3px);
+      box-shadow: 0 8px 24px rgba(255,193,7,0.18), 0 2px 8px #0d6efd;
+    }
+    .filters button.active {
+      background: #0d6efd;
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(13,110,253,0.18);
+      transform: scale(1.12);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-top: 20px;
+    }
+
+    /* Projects grid cards: Modern light green hover effect */
+.project-card {
+  background: #fff;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.10);
+  transition:
+    background 0.35s cubic-bezier(.4,2,.6,1),
+    color 0.35s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.35s cubic-bezier(.4,2,.6,1),
+    transform 0.35s cubic-bezier(.4,2,.6,1);
+  will-change: background, color, box-shadow, transform;
+  position: relative;
+  min-height: 320px;    /* pehle 390px tha, ab chota */
+  max-width: 290px;     /* pehle 370px tha, ab chota */
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+}
+.project-card img {
+  width: 100%;
+  height: 180px;              /* Card ke top me image ki height fix */
+  object-fit: cover;          /* Image crop ho jayegi, stretch nahi hogi */
+  object-position: center;    /* Image center se crop ho */
+  border-radius: 0;
+  transition: 
+    transform 0.5s cubic-bezier(.4,2,.6,1), 
+    filter 0.4s cubic-bezier(.4,2,.6,1);
+  display: block;
+  background: #eafaf1;        /* Agar image load na ho to halka green bg */
+}
+.project-card:hover {
+  background: linear-gradient(120deg, #43e97b 60%, #38f9d7 100%);
+  color: #fff;
+  box-shadow: 0 16px 48px rgba(67,233,123,0.18), 0 4px 24px #38f9d755;
+  transform: scale(1.07) perspective(600px) rotateY(10deg) rotateX(4deg);
+  z-index: 2;
+}
+.project-card:hover .info h3,
+.project-card:hover .info p {
+  color: #fff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+.project-card img {
+  transition: transform 0.5s cubic-bezier(.4,2,.6,1), filter 0.4s cubic-bezier(.4,2,.6,1);
+}
+.project-card:hover img {
+  transform: scale(1.08) rotate(-1deg);
+  filter: brightness(0.92) saturate(1.18);
+}
+
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 30px 20px 10px 20px; /* yahan 10px bottom */
+      font-size: 0.9rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animations */
+    @keyframes slideIn {
+      0% { transform: translateY(-30px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+    @keyframes zoomIn {
+      0% { opacity: 0; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,193,7, 0.7); }
+      50% { box-shadow: 0 0 0 20px rgba(255,193,7, 0); }
+    }
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+    .animate {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s ease-out;
+    }
+    .animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .choose-us {
+      background: #fff;
+      padding: 100px 20px;
+      text-align: center;
+    }
+    .choose-us h2 {
+      font-size: 2.2rem;
+      color: #0d6efd;
+      margin-bottom: 40px;
+      position: relative;
+    }
+    .choose-us h2::after {
+      content: ''; height: 4px; width: 60px; background: #ffc107;
+      position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%);
+    }
+    .strengths, .awards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      margin-top: 40px;
+    }
+    .strength, .award {
+      background: #f8f9fa;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+      padding: 24px 18px;
+      transition:
+        background 0.35s cubic-bezier(.4,2,.6,1),
+        color 0.35s cubic-bezier(.4,2,.6,1),
+        box-shadow 0.35s cubic-bezier(.4,2,.6,1),
+        transform 0.35s cubic-bezier(.4,2,.6,1);
+      will-change: background, color, box-shadow, transform;
+      cursor: pointer;
+      position: relative;
+      min-width: 220px;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .strength:hover, .award:hover {
+      background: linear-gradient(120deg, #0d6efd 60%, #43e97b 100%);
+      color: #fff;
+      box-shadow: 0 16px 48px rgba(13,110,253,0.15), 0 4px 24px #43e97b55;
+      transform: scale(1.06) perspective(600px) rotateY(8deg) rotateX(2deg);
+      z-index: 2;
+    }
+    .strength:hover h4,
+    .strength:hover p,
+    .award:hover h4,
+    .award:hover p {
+      color: #fff !important;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    }
+    .strength h4, .award h4 {
+      margin-bottom: 10px;
+      color: #0d6efd;
+      font-size: 1.15rem;
+      font-weight: 700;
+      transition: color 0.3s;
+    }
+
+    /* Modern live hover + scroll-in effect for service cards */
+.card.animate {
+  opacity: 0;
+  transform: translateY(60px) scale(0.9);
+  transition:
+    opacity 0.7s cubic-bezier(.4,2,.6,1),
+    transform 0.7s cubic-bezier(.4,2,.6,1),
+    background 0.4s cubic-bezier(.4,2,.6,1),
+    color 0.4s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.4s cubic-bezier(.4,2,.6,1);
+  will-change: opacity, transform, background, color, box-shadow;
+}
+.card.animate.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.card.animate:hover {
+  background: linear-gradient(90deg, #0d6efd 60%, #ffc107 100%);
+  color: #fff;
+  transform: scale(1.08) translateY(-10px) perspective(600px) rotateY(8deg) skewX(-2deg);
+  box-shadow: 0 16px 40px rgba(13,110,253,0.18), 0 2px 16px #ffc107;
+  z-index: 2;
+}
+.card.animate:hover h3,
+.card.animate:hover p,
+.card.animate:hover i {
+  color: #fff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.18);
+}
+#projects h2 {
+  font-size: 2.3rem;
+  color: #0d6efd;
+  position: relative;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color 0.4s, text-shadow 0.4s, transform 0.4s;
+}
+#projects h2::after {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 70px;
+  background: linear-gradient(90deg, #0d6efd 60%, #ffc107 100%);
+  border-radius: 2px;
+  margin: 18px auto 0;
+  transition: width 0.4s cubic-bezier(.4,2,.6,1);
+}
+#projects h2:hover {
+  color: #ffc107;
+  text-shadow: 0 4px 24px #0d6efd, 0 2px 8px #ffc107;
+  transform: scale(1.06) skewX(-2deg);
+}
+#projects h2:hover::after {
+  width: 120px;
+  background: linear-gradient(90deg, #ffc107 60%, #0d6efd 100%);
+}
+#services h2 {
+  font-size: 2.3rem;
+  color: #0d6efd;
+  position: relative;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color 0.4s, text-shadow 0.4s, transform 0.4s;
+}
+#services h2::after {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 70px;
+  background: linear-gradient(90deg, #0d6efd 60%, #ffc107 100%);
+  border-radius: 2px;
+  margin: 18px auto 0;
+  transition: width 0.4s cubic-bezier(.4,2,.6,1), background 0.4s;
+}
+#services h2:hover {
+  color: #ffc107;
+  text-shadow: 0 4px 24px #0d6efd, 0 2px 8px #ffc107;
+  transform: scale(1.06) skewX(-2deg);
+}
+#services h2:hover::after {
+  width: 120px;
+  background: linear-gradient(90deg, #ffc107 60%, #0d6efd 100%);
+}
+#why h2 {
+  font-size: 2.3rem;
+  color: #0d6efd;
+  position: relative;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color 0.4s, text-shadow 0.4s, transform 0.4s;
+}
+#why h2::after {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 70px;
+  background: linear-gradient(90deg, #0d6efd 60%, #43e97b 100%);
+  border-radius: 2px;
+  margin: 18px auto 0;
+  transition: width 0.4s cubic-bezier(.4,2,.6,1), background 0.4s;
+}
+#why h2:hover {
+  color: #43e97b;
+  text-shadow: 0 4px 24px #0d6efd, 0 2px 8px #43e97b;
+  transform: scale(1.06) skewX(-2deg);
+}
+#why h2:hover::after {
+  width: 120px;
+  background: linear-gradient(90deg, #43e97b 60%, #0d6efd 100%);
+}
+#about h2 {
+  font-size: 2.3rem;
+  color: #0d6efd;
+  position: relative;
+  margin-bottom: 50px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: color 0.4s, text-shadow 0.4s, transform 0.4s;
+}
+#about h2::after {
+  content: '';
+  display: block;
+  height: 4px;
+  width: 70px;
+  background: linear-gradient(90deg, #0d6efd 60%, #ffc107 100%);
+  border-radius: 2px;
+  margin: 18px auto 0;
+  transition: width 0.4s cubic-bezier(.4,2,.6,1), background 0.4s;
+}
+#about h2:hover {
+  color: #ffc107;
+  text-shadow: 0 4px 24px #0d6efd, 0 2px 8px #ffc107;
+  transform: scale(1.06) skewX(-2deg);
+}
+#about h2:hover::after {
+  width: 120px;
+  background: linear-gradient(90deg, #ffc107 60%, #0d6efd 100%);
+}
+
+.about-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin-top: 40px;
+}
+.about-card {
+  background: #f8f9fa;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+  padding: 28px 20px;
+  transition:
+    background 0.4s cubic-bezier(.4,2,.6,1),
+    color 0.4s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.4s cubic-bezier(.4,2,.6,1);
+  cursor: pointer;
+  position: relative;
+  min-width: 220px;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+.about-card:hover, .about-card:focus {
+  background: linear-gradient(120deg, #0d6efd 60%, #ffc107 100%);
+  color: #fff;
+  box-shadow: 0 16px 48px #0d6efd33, 0 4px 24px #ffc10788;
+}
+.about-card strong, .about-card h3 {
+  color: #0d6efd;
+  font-size: 1.18rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  transition: color 0.3s;
+  position: relative;
+  z-index: 1;
+}
+.about-card:hover strong, .about-card:hover h3,
+.about-card:focus strong, .about-card:focus h3 {
+  color: #fff !important;
+  text-shadow: 0 2px 8px #0d6efd99, 0 1px 1px #fff;
+}
+.about-card p {
+  flex: 1;
+  color: #333;
+  line-height: 1.6;
+  transition: color 0.3s;
+  position: relative;
+  z-index: 1;
+}
+.about-card:hover p, .about-card:focus p {
+  color: #fff !important;
+  text-shadow: 0 2px 8px #0d6efd99, 0 1px 1px #fff;
+}
+
+/* Our Office heading hover effect */
+#contact h3 {
+  color: #0d6efd;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition:
+    color 0.4s cubic-bezier(.4,2,.6,1),
+    text-shadow 0.4s cubic-bezier(.4,2,.6,1),
+    transform 0.4s cubic-bezier(.4,2,.6,1);
+  cursor: pointer;
+  position: relative;
+  text-align: left;
+}
+
+#contact h3:hover {
+  color: #ffc107;
+  text-shadow:
+    0 0 16px #0d6efdcc,
+    0 0 32px #ffc107cc,
+    0 2px 12px #fff;
+  transform: scale(1.11) perspective(500px) rotateY(10deg) skewX(-2deg);
+  letter-spacing: 2px;
+}
+
+/* Footer styles */
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 30px 20px 10px 20px; /* yahan 10px bottom */
+      font-size: 0.9rem;
+      position: relative;
+      overflow: hidden;
+    }
+    footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      z-index: 1;
+    }
+    footer p {
+      position: relative;
+      z-index: 2;
+    }
+    .footer-social {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-bottom: 18px;
+      margin-top: 30px;
+    }
+    .footer-social .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #fff;
+      color: #0d6efd;
+      font-size: 2rem;
+      box-shadow: 0 4px 16px rgba(13,110,253,0.10);
+      transition:
+        background 0.3s cubic-bezier(.4,2,.6,1),
+        color 0.3s cubic-bezier(.4,2,.6,1),
+        box-shadow 0.4s cubic-bezier(.4,2,.6,1),
+        transform 0.4s cubic-bezier(.4,2,.6,1);
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-social .social-icon:hover, .footer-social .social-icon:focus {
+      background: linear-gradient(120deg, #0d6efd 60%, #ffc107 100%);
+      color: #fff;
+      transform: scale(1.18) perspective(400px) rotateY(12deg) skewX(-2deg);
+      box-shadow: 0 8px 32px #0d6efd55, 0 2px 8px #ffc10799;
+      outline: none;
+    }
+    .footer-social .social-icon[title="WhatsApp"] {
+      color: #25D366;
+    }
+    .footer-social .social-icon[title="WhatsApp"]:hover {
+      background: linear-gradient(120deg, #25D366 60%, #0d6efd 100%);
+      color: #fff;
+      box-shadow: 0 8px 32px #25D36655, 0 2px 8px #0d6efd99;
+    }
+#about h3 {
+  color: #0d6efd;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  transition: 
+    color 0.4s,
+    text-shadow 0.4s,
+    transform 0.4s;
+}
+#about h3.glow {
+  color: #43e97b !important; /* Bright light green */
+  text-shadow:
+    0 0 18px #43e97bcc,
+    0 0 32px #0d6efdcc,
+    0 4px 24px #fff;
+  transform: scale(1.07);
+  letter-spacing: 2px;
+}
+#about h3:hover {
+  color: #43e97b;
+  text-shadow:
+    0 0 18px #43e97bcc,
+    0 0 32px #0d6efdcc,
+    0 4px 24px #fff;
+  transform: scale(1.09);
+}
+
+/* 3D Gold-Blue Glow Hover Effect for All Section Titles */
+h2, h3 {
+  transition: 
+    color 0.4s cubic-bezier(.4,2,.6,1),
+    text-shadow 0.4s cubic-bezier(.4,2,.6,1),
+    transform 0.4s cubic-bezier(.4,2,.6,1);
+  cursor: pointer;
+  will-change: color, text-shadow, transform;
+  position: relative;
+}
+
+h2:hover, h3:hover {
+  color: #ffc107;
+  text-shadow:
+    0 0 16px #0d6efdcc,
+    0 0 32px #ffc107cc,
+    0 2px 12px #fff;
+  transform: scale(1.11) perspective(500px) rotateY(10deg) skewX(-2deg);
+  letter-spacing: 2px;
+}
+
+.cta-button,
+button,
+input[type="button"],
+input[type="submit"] {
+  background: linear-gradient(90deg, #0d6efd 60%, #ffc107 100%);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 14px 32px;
+  box-shadow: 0 4px 16px rgba(13,110,253,0.12), 0 2px 8px #ffc10733;
+  transition:
+    background 0.3s cubic-bezier(.4,2,.6,1),
+    color 0.3s cubic-bezier(.4,2,.6,1),
+    transform 0.4s cubic-bezier(.4,2,.6,1),
+    box-shadow 0.4s cubic-bezier(.4,2,.6,1),
+    letter-spacing 0.3s;
+  outline: none;
+  will-change: background, color, transform, box-shadow;
+}
+
+.cta-button:hover,
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+.cta-button:focus,
+button:focus,
+input[type="button"]:focus,
+input[type="submit"]:focus {
+  background: linear-gradient(90deg, #ffc107 60%, #0d6efd 100%);
+  color: #222;
+  transform: scale(1.11) perspective(500px) rotateY(10deg) skewX(-2deg);
+  box-shadow: 0 16px 40px #0d6efd55, 0 4px 24px #ffc107cc, 0 0 24px #0d6efd77;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 12px #0d6efd, 0 1px 1px #fff;
+}
+
+.about-slider-box {
+  background: #f8f9fa;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(13,110,253,0.08), 0 2px 8px #ffc10722;
+  padding: 38px 32px;
+  max-width: 600px;
+  margin: 40px auto 60px auto;
+  text-align: center;
+  min-height: 220px;
+  transition: background 0.4s, box-shadow 0.4s, color 0.4s;
+  position: relative;
+  overflow: hidden;
+}
+.about-slider-box h3 {
+  color: #0d6efd;
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: color 0.4s, text-shadow 0.4s;
+}
+.about-slider-box p {
+  color: #333;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  transition: color 0.4s;
+}
+.about-slider-box.active {
+  background: linear-gradient(120deg, #0d6efd 60%, #ffc107 100%);
+  box-shadow: 0 16px 48px #0d6efd33, 0 4px 24px #ffc10788;
+}
+.about-slider-box.active h3,
+.about-slider-box.active p {
+  color: #fff !important;
+  text-shadow: 0 2px 8px #0d6efd99, 0 1px 1px #fff;
+}
+
+/* Team Slider Box */
+.team-slider-box {
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0 8px 32px rgba(13,110,253,0.10), 0 2px 8px #ffc10722;
+  padding: 48px 36px 38px 36px;
+  max-width: 370px;
+  margin: 40px auto 60px auto;
+  text-align: center;
+  min-height: 420px;
+  transition: background 0.4s, box-shadow 0.4s, color 0.4s;
+  position: relative;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.team-slider-box img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 8px 32px #0d6efd33, 0 2px 8px #ffc10755;
+  margin-bottom: 28px;
+  border: 6px solid #fff;
+  background: #f3f4f6;
+  transition: box-shadow 0.4s, transform 0.4s;
+}
+.team-slider-box.active img {
+  box-shadow: 0 16px 48px #0d6efd55, 0 4px 24px #ffc10788;
+  transform: scale(1.08);
+}
+.team-slider-box h3 {
+  color: #0d6efd;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: color 0.4s, text-shadow 0.4s;
+}
+.team-slider-box p {
+  color: #333;
+  font-size: 1.08rem;
+  line-height: 1.7;
+  transition: color 0.4s;
+  margin-bottom: 0;
+}
+.team-slider-box.active h3,
+.team-slider-box.active p {
+  color: #ffc107 !important;
+  text-shadow: 0 2px 8px #0d6efd99, 0 1px 1px #fff;
+}
+
+.team-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.4s cubic-bezier(.4,2,.6,1), box-shadow 0.4s cubic-bezier(.4,2,.6,1);
+  cursor: pointer;
+  background: transparent;
+  border-radius: 50%;
+  padding: 0;
+  margin: 0 18px;
+}
+.team-profile img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 8px 32px #0d6efd22, 0 2px 8px #ffc10733;
+  transition: box-shadow 0.4s, transform 0.4s;
+  background: #fff;
+  border: 6px solid #fff;
+}
+.team-profile:hover img,
+.team-profile:focus img {
+  box-shadow: 0 16px 48px #0d6efd66, 0 4px 24px #ffc10799, 0 0 32px #fff3;
+  transform: scale(1.09) perspective(600px) rotateY(10deg) rotateX(2deg);
+}
+.team-profile h4 {
+  margin-top: 18px;
+  color: #0d6efd;
+  font-size: 1.18rem;
+  font-weight: 700;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+.team-profile:hover h4,
+.team-profile:focus h4 {
+  color: #ffc107;
+  text-shadow: 0 2px 12px #0d6efd99, 0 1px 1px #fff;
+}
+.team-profile p {
+  color: #222;
+  font-size: 1.08rem;
+  margin: 0;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+.team-profile:hover p,
+.team-profile:focus p {
+  color: #0d6efd;
+  text-shadow: 0 2px 8px #ffc10799;
+}
+
+/* Center align for Our Core Values heading */
+.our-core-values-title {
+  text-align: center;
+  display: block;
+  margin-bottom: 30px;
+  font-size: 2rem;
+  color: #0d6efd;
+  font-weight: 700;
+}
+
+.contact-info {
+  text-align: center;
+  margin: 0 auto;
+}
+#contact .contact-info h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+#contact .contact-info p {
+  text-align: center;
+  margin-bottom: 10px;
+}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#projects">Projects</a>
+    <a href="#why">Why Choose Us</a>
+    <a href="#contact">Contact</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+
+
+  </nav>
+  <header id="home">
+    <h1>Royle Construction</h1>
+    <p></p>
+    <button class="cta-button">Request a Free Quote</button>
+  </header>
+
+  <!-- Services -->
+  <section class="section animate" id="services">
+    <h2>Our Core Services</h2>
+    <div class="cards">
+      <div class="card animate">
+        <i class="fas fa-home"></i>
+        <h3>Residential</h3>
+        <p>Modern, energy-efficient homes tailored to your lifestyle.</p>
+      </div>
+      <div class="card animate">
+        <i class="fas fa-city"></i>
+        <h3>Commercial</h3>
+        <p>Smart spaces for startups, offices, retail, and more.</p>
+      </div>
+      <div class="card animate">
+        <i class="fas fa-tools"></i>
+        <h3>Renovation</h3>
+        <p>Refresh and redesign your living or commercial spaces.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section class="section animate" id="projects">
+    <h2>Our Projects</h2>
+    <div class="filters">
+      <button id="all" onclick="filterProjects('all')">All</button>
+      <button id="residential" onclick="filterProjects('residential')">Residential</button>
+      <button id="commercial" onclick="filterProjects('commercial')">Commercial</button>
+    </div>
+    <div class="projects-grid">
+      <div class="project-card residential animate">
+        <img src="/resident.jpg" alt="Residential Villa">
+        <div class="info">
+          <h3>Modern Villa</h3>
+          <p>Luxury 4BHK with smart automation.</p>
+        </div>
+      </div>
+      <div class="project-card commercial animate">
+        <img src="/sky.jpg" alt="Office Complex">
+        <div class="info">
+          <h3>Skyline Tower</h3>
+          <p>14-floor commercial IT park.</p>
+        </div>
+      </div>
+      <div class="project-card residential animate">
+        <img src="/eco.jpg" alt="Apartments">
+        <div class="info">
+          <h3>Green Apartments</h3>
+          <p>Eco-friendly residential flats.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="choose-us section animate" id="why">
+    <h2>Why Choose Us</h2>
+    <div class="strengths">
+      <div class="strength">
+        <h4>Expert Team</h4>
+        <p>Experienced architects, engineers, and project managers.</p>
+      </div>
+      <div class="strength">
+        <h4>Premium Materials</h4>
+        <p>We use only certified, high-grade construction materials.</p>
+      </div>
+      <div class="strength">
+        <h4>Affordable Pricing</h4>
+        <p>Transparent quotes and no hidden charges.</p>
+      </div>
+      <div class="strength">
+        <h4>On-Time Delivery</h4>
+        <p>We follow strict timelines with regular updates.</p>
+      </div>
+    </div>
+    <div class="awards" style="margin-top: 60px;">
+      <div class="award">
+        <h4>ISO Certified</h4>
+        <p>Quality and safety assurance certified by ISO standards.</p>
+      </div>
+      <div class="award">
+        <h4>Best Builder Award 2024</h4>
+        <p>Recognized as Gujarat’s top residential contractor.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- About Us -->
+<section class="section animate" id="about">
+  <h2>About Us</h2>
+
+  <!-- Team Slider Box -->
+  <div class="team-slider-box animate" id="teamSliderBox">
+    <img id="teamSliderImg" src="/team1.jpg" alt="Rajiv Mehta" />
+    <h3 id="teamSliderName">Rajiv Mehta</h3>
+    <p id="teamSliderRole">Founder & CEO</p>
+  </div>
+
+  <!-- Core Values -->
+  <div style="margin-top: 80px; max-width: 900px; margin-inline: auto;">
+    <h3 class="our-core-values-title">Our Core Values</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+      <div class="about-card animate">
+        <strong>🛠 Quality First</strong>
+        <p>We use top-grade materials and world-class workmanship to deliver lasting results.</p>
+      </div>
+      <div class="about-card animate">
+        <strong>👥 Customer Focus</strong>
+        <p>We prioritize open communication, customized solutions, and total client satisfaction.</p>
+      </div>
+      <div class="about-card animate">
+        <strong>⚡ Innovation</strong>
+        <p>Embracing modern technology and eco-conscious designs to build for tomorrow.</p>
+      </div>
+      <div class="about-card animate">
+        <strong>⏱ Integrity & Timeliness</strong>
+        <p>Our transparent processes and punctual delivery have earned client trust for 20+ years.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Slider Box (Story/Mission/Vision) -->
+  <div class="about-slider-box animate" id="aboutSliderBox">
+    <h3 id="aboutSliderTitle">Our Story</h3>
+    <p id="aboutSliderText">
+      Founded in 2004, Royle Construction started with a simple yet powerful vision—to redefine the skylines of Gujarat through excellence in construction. From humble beginnings to becoming a trusted industry leader, our journey has been built on quality, transparency, and customer satisfaction.
+    </p>
+  </div>
+</section>
+
+  <!-- Core Values -->
+  <div style="margin-top: 80px; max-width: 900px; margin-inline: auto;">
+    <h3 class="our-core-values-title">Our Core Values</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+      <div class="about-card animate">
+        <strong>🛠 Quality First</strong>
+        <p>We use top-grade materials and world-class workmanship to deliver lasting results.</p>
+      </div>
+      <div class="about-card animate">
+        <strong>👥 Customer Focus</strong>
+        <p>We prioritize open communication, customized solutions, and total client satisfaction.</p>
+      </div>
+      <div class="about-card animate">
+        <strong>⚡ Innovation</strong>
+        <p>Embracing modern technology and eco-conscious designs to build for tomorrow.</p>
+      </div>
+      <div class="about-card animate">
+        <strong>⏱ Integrity & Timeliness</strong>
+        <p>Our transparent processes and punctual delivery have earned client trust for 20+ years.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Slider Box -->
+  <div class="about-slider-box animate" id="aboutSliderBox">
+  <h3 id="aboutSliderTitle">Our Story</h3>
+  <p id="aboutSliderText">
+    Founded in 2004, Royle Construction started with a simple yet powerful vision—to redefine the skylines of Gujarat through excellence in construction. From humble beginnings to becoming a trusted industry leader, our journey has been built on quality, transparency, and customer satisfaction.
+  </p>
+</div>
+
+
+ <!-- Testimonials -->
+  <section class="testimonial-section animate" id="testimonials">
+    <h2>Client Testimonials</h2>
+    <div class="testimonial">
+      <p>Royle Construction turned our vision into reality. High-quality work, great team, timely delivery!</p>
+      <br />
+      <strong>- Priya Sharma, Residential Client</strong>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+<section id="contact" class="section animate" style="background: #f8f9fa;">
+  <h2>Contact Us</h2>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; max-width: 1000px; margin: auto;">
+    
+    <!-- Contact Form -->
+    <form style="flex: 1 1 450px; display: flex; flex-direction: column; gap: 15px;">
+      <input type="text" placeholder="Full Name" required style="padding: 12px; border: 1px solid #ccc; border-radius: 8px;" />
+      <input type="email" placeholder="Email Address" required style="padding: 12px; border: 1px solid #ccc; border-radius: 8px;" />
+      <input type="tel" placeholder="Phone Number" required style="padding: 12px; border: 1px solid #ccc; border-radius: 8px;" />
+      <textarea rows="5" placeholder="Your Message" required style="padding: 12px; border: 1px solid #ccc; border-radius: 8px;"></textarea>
+      <button type="submit" class="cta-button" style="align-self: start;">Send Message</button>
+    </form>
+
+    <!-- Contact Info -->
+    <div class="contact-info">
+  <h3>Our Office</h3>
+  <p>Royle Construction Pvt. Ltd.<br>123 Skyline Avenue, Vadodara, Gujarat, India</p>
+  <p>
+    <strong>Phone:</strong>
+    <a href="tel:+919876543210" style="color:#0d6efd; text-decoration:underline;">+91 98765 43210</a>
+  </p>
+  <p>
+    <strong>Email:</strong>
+    <a href="mailto:contact@royleconstruction.com" style="color:#0d6efd; text-decoration:underline;">contact@royleconstruction.com</a>
+  </p>
+</div>
+  </div>
+
+</section>
+
+
+<!-- Blog / News Section -->
+<section id="blog" class="section animate">
+  <h2>Latest News & Articles</h2>
+  <div class="cards">
+    <div class="card animate">
+      <img src="/blog1.jpg" alt="Construction Trends" style="width:100%; border-radius: 10px; height: 180px; object-fit: cover; margin-bottom: 15px;">
+      <h3>Top Construction
+      <h3>5 Tips for Smooth Project Management</h3>
+      <p>Ensure deadlines and budgets are met with these proven construction strategies.</p>
+      <a href="#" style="color: #0d6efd; font-weight: 600;">Read More →</a>
+    </div>
+  </div>
+</section>
+
+
+  <!-- Footer -->
+  <footer id="contact">
+
+    <!-- Social Media Links -->
+    <div class="footer-social">
+  <a href="https://x.com/X." class="social-icon" title="X (Twitter)" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+  <a href="https://www.facebook.com/RoyalConstructionVadodara" class="social-icon" title="Facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+  <a href="https://www.instagram.com/" class="social-icon" title="Instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+  <a href="https://in.linkedin.com/" class="social-icon" title="LinkedIn" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+  <a href="#" class="social-icon" title="YouTube" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+  <a href="https://wa.me/919876543210" class="social-icon" title="WhatsApp" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+</div>
+    <p>&copy; 2025 Royle Construction. Designed with care & precision.</p>
+
+  </footer>
+
+  <script>
+    const filters = document.querySelector('.filters');
+const filtersObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      filters.classList.add('visible');
+    }
+  });
+}, { threshold: 0.3 });
+if (filters) filtersObserver.observe(filters);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      }, { threshold: 0.2 });
+
+      const animatedElements = document.querySelectorAll(".animate, .strength, .award");
+      animatedElements.forEach(el => observer.observe(el));
+
+      const filterButtons = document.querySelectorAll('.filters button');
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const category = btn.id;
+          filterProjects(category);
+          document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      const projects = document.querySelectorAll('.project-card');
+      function filterProjects(category) {
+        projects.forEach(p => {
+          if (category === 'all' || p.classList.contains(category)) {
+            p.style.display = 'block';
+          } else {
+            p.style.display = 'none';
+          }
+        });
+      }
+      filterProjects('all'); // Initial project filter
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+  const coreValuesTitle = document.querySelector('#about h3');
+  if (!coreValuesTitle) return;
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        coreValuesTitle.classList.add('glow');
+      } else {
+        coreValuesTitle.classList.remove('glow');
+      }
+    });
+  }, { threshold: 0.5 });
+  observer.observe(coreValuesTitle);
+});
+    document.addEventListener('DOMContentLoaded', () => {
+  const slides = [
+    {
+      title: "Our Story",
+      text: "Founded in 2004, Royle Construction started with a simple yet powerful vision—to redefine the skylines of Gujarat through excellence in construction. From humble beginnings to becoming a trusted industry leader, our journey has been built on quality, transparency, and customer satisfaction."
+    },
+    {
+      title: "Our Mission",
+      text: "To create reliable, innovative, and sustainable construction solutions that elevate everyday living for our clients and communities."
+    },
+    {
+      title: "Our Vision",
+      text: "To be recognized as Gujarat’s most dependable and design-forward construction brand, setting new benchmarks in quality and client trust."
+    }
+  ];
+  let idx = 0;
+  const box = document.getElementById('aboutSliderBox');
+  const title = document.getElementById('aboutSliderTitle');
+  const text = document.getElementById('aboutSliderText');
+
+  setInterval(() => {
+    idx = (idx + 1) % slides.length;
+    box.classList.remove('active');
+    setTimeout(() => {
+      title.textContent = slides[idx].title;
+      text.textContent = slides[idx].text;
+      box.classList.add('active');
+    }, 350);
+  }, 3500);
+});
+document.addEventListener('DOMContentLoaded', () => {
+  const teamSlides = [
+    {
+      img: "/team1.jpg",
+      name: "Rajiv Mehta",
+      role: "Founder & CEO"
+    },
+    {
+      img: "/team2.jpg",
+      name: "Neha Shah",
+      role: "Chief Technical Officer"
+    },
+    {
+      img: "/team3.jpg",
+      name: "Amit Desai",
+      role: "Project Manager"
+    }
+  ];
+  let tIdx = 0;
+  const tBox = document.getElementById('teamSliderBox');
+  const tImg = document.getElementById('teamSliderImg');
+  const tName = document.getElementById('teamSliderName');
+  const tRole = document.getElementById('teamSliderRole');
+
+  setInterval(() => {
+    tIdx = (tIdx + 1) % teamSlides.length;
+    tBox.classList.remove('active');
+    setTimeout(() => {
+      tImg.src = teamSlides[tIdx].img;
+      tImg.alt = teamSlides[tIdx].name;
+      tName.textContent = teamSlides[tIdx].name;
+      tRole.textContent = teamSlides[tIdx].role;
+      tBox.classList.add('active');
+    }, 350);
+  }, 3500);
+});
+  </script>
+</body>
+</html>
